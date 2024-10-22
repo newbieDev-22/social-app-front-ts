@@ -1,8 +1,5 @@
 import { AnySchema, ValidationErrorItem } from "joi";
-
-interface IValidateError {
-  [key: string]: string;
-}
+import { IValidateError } from "../data-type/validator";
 
 export default function validateWrapper(schema: AnySchema, input: object) {
   const { error } = schema.validate(input, { abortEarly: false });
