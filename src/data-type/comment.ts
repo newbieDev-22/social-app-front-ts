@@ -1,5 +1,24 @@
-interface IMessageInput {
-  massage: string;
+interface ICommentInput {
+  message?: string;
 }
 
-export type { IMessageInput };
+interface ICommentData {
+  id: number;
+  message: string;
+  userId: number;
+  user: {
+    firstName: string;
+    lastName: string;
+  };
+}
+
+interface ICommentItem {
+  postId: number;
+  commentId: number;
+  isCommenter: boolean;
+  firstName: string;
+  lastName: string;
+  message: string;
+}
+
+export type { ICommentInput, ICommentData, ICommentItem };

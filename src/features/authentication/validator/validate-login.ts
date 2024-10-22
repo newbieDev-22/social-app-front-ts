@@ -9,7 +9,7 @@ const loginSchema = Joi.object({
   password: Joi.string().required().messages({
     "string.empty": `Password is required.`,
   }),
-});
+}).meta({ className: "ILoginInput" });
 
 const validateLogin = (input: ILoginInput) => validateWrapper(loginSchema, input);
 

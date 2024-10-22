@@ -1,5 +1,6 @@
 import Joi from "joi";
 import validateWrapper from "../../../utils/validate-wrapper";
+import { IRegisterInput } from "../../../data-type/auth";
 
 const registerSchema = Joi.object({
   email: Joi.string()
@@ -36,8 +37,9 @@ const registerSchema = Joi.object({
     "string.empty": `Confirm password is required.`,
     "any.only": `Password and confirm password did not match.`,
   }),
-});
+}).meta({ className: "IRegisterInput" });
 
-const validateRegister = (input) => validateWrapper(registerSchema, input);
+const validateRegister = (input: IRegisterInput) =>
+  validateWrapper(registerSchema, input);
 
 export default validateRegister;

@@ -1,17 +1,14 @@
 import axios from "../config/axios";
-
-interface IMessageInput {
-  massage: string;
-}
+import { ICommentInput } from "../data-type/comment";
 
 class Comment {
   constructor() {}
 
-  createComment(postId: number, message: IMessageInput) {
+  createComment(postId: number, message: ICommentInput) {
     return axios.post(`/comments/post/${postId}`, message);
   }
 
-  updateComment(commentId: number, message: IMessageInput) {
+  updateComment(commentId: number, message: ICommentInput) {
     return axios.patch(`/comments/${commentId}`, message);
   }
 

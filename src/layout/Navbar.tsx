@@ -2,7 +2,12 @@ import { Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
 export default function Navbar() {
-  const { authUser, logout } = useAuth();
+  const auth = useAuth();
+  const authUser = auth?.authUser;
+  const logout = auth?.logout;
+
+  if (!authUser) return null;
+
   return (
     <header className="flex justify-between items-center bg-gradient-to-b from-red-500 to-rose-400 shadow px-4 h-16">
       <div className="justify-self-start cursor-pointer">

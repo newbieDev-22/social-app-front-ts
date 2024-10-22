@@ -1,14 +1,31 @@
 import { ILoginInput, IUser } from "./auth";
+import { ICommentData, ICommentInput } from "./comment";
+import { IPostData, IPostInput } from "./post";
 
 interface IReactChildren {
   children: React.ReactNode;
 }
 
 interface IAuthProviderValue {
-  login: (credentials: ILoginInput) => Promise<void>;
-  logout: () => void;
-  authUser: IUser | null;
-  isAuthUserLoading: boolean;
+  login?: (credentials: ILoginInput) => Promise<void>;
+  logout?: () => void;
+  authUser?: IUser | null;
+  isAuthUserLoading?: boolean;
+}
+
+interface IPostProviderValue {
+  posts?: IPostData[];
+  isPostsLoading?: boolean;
+  handleAddPost?: (post: IPostData) => void;
+  handleUpdatePost?: (postId: number, updatedPost: IPostInput) => void;
+  handleDeletePost?: (postId: number) => void;
+  handleAddComment?: (postId: number, comment: ICommentData) => void;
+  handleUpdateComment?: (
+    postId: number,
+    commentId: number,
+    updatedComment: ICommentInput
+  ) => void;
+  handleDeleteComment?: (postId: number, commentId: number) => void;
 }
 
 interface IAvatarProps {
@@ -25,7 +42,7 @@ interface IButtonProps {
 }
 
 interface IInputProps {
-  placeholder: string;
+  placeholder?: string;
   error?: string;
   type?: string;
   name?: string;
@@ -48,4 +65,5 @@ export type {
   IAvatarProps,
   IButtonProps,
   IModalProps,
+  IPostProviderValue,
 };

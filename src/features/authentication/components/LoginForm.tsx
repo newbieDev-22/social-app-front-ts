@@ -22,7 +22,7 @@ const initialInputError: IValidateError = {
 export default function LoginForm() {
   const [input, setInput] = useState<ILoginInput>(initialInput);
   const [inputError, setInputError] = useState<IValidateError>(initialInputError);
-  const login = useAuth()?.login;
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   if (!login) {

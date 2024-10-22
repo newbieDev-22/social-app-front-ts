@@ -1,8 +1,5 @@
 import axios from "../config/axios";
-
-interface IPostInput {
-  message: string;
-}
+import { IPostInput } from "../data-type/post";
 
 class Post {
   constructor() {}

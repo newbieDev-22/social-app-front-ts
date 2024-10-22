@@ -8,7 +8,7 @@ import authApi from "../apis/auth";
 import { IGetDataAuthUser, ILoginInput, IUser } from "../data-type/auth";
 import { IAuthProviderValue, IReactChildren } from "../data-type/react-type";
 
-const AuthContext = createContext<IAuthProviderValue | null>(null);
+const AuthContext = createContext<IAuthProviderValue>({});
 
 export default function AuthContextProvider({ children }: IReactChildren) {
   const [authUser, setAuthUser] = useState<IUser | null>(null);

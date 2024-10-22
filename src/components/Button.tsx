@@ -40,7 +40,7 @@ const getBg = (key: string = "black"): string => {
   return bgMap[key as keyof IBgMap];
 };
 
-const getWidth = (key: string | number = "full"): string => {
+const getWidth = (key: string | number = 40): string => {
   return widthMap[key as keyof IWidthMap];
 };
 
