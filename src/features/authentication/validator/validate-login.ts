@@ -11,6 +11,7 @@ const loginSchema = Joi.object({
   }),
 }).meta({ className: "ILoginInput" });
 
-const validateLogin = (input: ILoginInput) => validateWrapper(loginSchema, input);
+const validateLogin = (input: ILoginInput) =>
+  validateWrapper<ILoginInput>(loginSchema, input);
 
 export default validateLogin;

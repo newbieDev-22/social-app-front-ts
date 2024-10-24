@@ -12,7 +12,7 @@ export default function CommentContainer({
   postId: number;
 }) {
   const { authUser } = useAuth();
-  const [isShow, setIsShow] = useState<boolean>(false);
+  const [isShow, setIsShow] = useState<boolean>(true);
 
   if (!authUser) return null;
 

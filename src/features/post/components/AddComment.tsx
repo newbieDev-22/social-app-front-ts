@@ -22,7 +22,7 @@ export default function AddComment({ postId }: { postId: number }) {
     return null;
   }
 
-  const handleCreateComment = async () => {
+  const handleCreateComment = async (): Promise<void> => {
     try {
       const error = validateComment(input);
       if (error) {

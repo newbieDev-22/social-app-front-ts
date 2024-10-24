@@ -23,7 +23,7 @@ export default function PostItem({
 
   if (!handleUpdatePost || !handleDeletePost) return null;
 
-  const handleEdit = async () => {
+  const handleEdit = async (): Promise<void> => {
     if (isEdit) {
       await postApi.updatePost(postId, { message: editContent });
       handleUpdatePost(postId, { message: editContent });
@@ -34,7 +34,7 @@ export default function PostItem({
     }
   };
 
-  const handleDelete = async () => {
+  const handleDelete = async (): Promise<void> => {
     await postApi.deletePost(postId);
     handleDeletePost(postId);
     toast.success("Post deleted successfully");

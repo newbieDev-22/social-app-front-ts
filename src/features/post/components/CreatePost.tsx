@@ -19,7 +19,7 @@ export default function CreatePost() {
     return null;
   }
 
-  const handleCreatePost = async () => {
+  const handleCreatePost = async (): Promise<void> => {
     try {
       const error = validatePost(input);
       if (error) {

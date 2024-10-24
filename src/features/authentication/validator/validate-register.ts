@@ -40,6 +40,6 @@ const registerSchema = Joi.object({
 }).meta({ className: "IRegisterInput" });
 
 const validateRegister = (input: IRegisterInput) =>
-  validateWrapper(registerSchema, input);
+  validateWrapper<IRegisterInput>(registerSchema, input);
 
 export default validateRegister;

@@ -27,12 +27,15 @@ export default function RegisterForm({ onSuccess }: { onSuccess: () => void }) {
   const [input, setInput] = useState<IRegisterInput>(initialInput);
   const [inputError, setInputError] = useState<IValidateError>(initialInputError);
 
-  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
-  const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     try {
+      setInputError((prev) => {
+        return { ...prev, ...initialInputError };
+      });
       e.preventDefault();
       const error = validateRegister(input);
       if (error) {

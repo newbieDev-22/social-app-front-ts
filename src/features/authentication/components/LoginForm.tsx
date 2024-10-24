@@ -29,14 +29,18 @@ export default function LoginForm() {
     return null;
   }
 
-  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
-  const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     try {
       e.preventDefault();
       const error = validateLogin(input);
+      setInputError((prev) => {
+        return { ...prev, ...initialInputError };
+      });
+
       if (error) {
         return setInputError(error);
       } else {
@@ -52,7 +56,7 @@ export default function LoginForm() {
           err.response?.status === 400
             ? "Invalid email or password!"
             : "Internal Server Error!";
-        return toast.error(message);
+        toast.error(message);
       }
     }
   };

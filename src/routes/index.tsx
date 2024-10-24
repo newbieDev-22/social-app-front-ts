@@ -3,8 +3,8 @@ import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom"
 import ProtectedRoute from "../features/authentication/components/ProtectedRoute";
 import RedirectIfLogged from "../features/authentication/components/RedirectIfLogged";
 
-const LoginPage = lazy(() => import("../pages/LoginPage"));
-const HomePage = lazy(() => import("../pages/HomePage"));
+const LoginPage: React.FC = lazy(() => import("../pages/LoginPage"));
+const HomePage: React.FC = lazy(() => import("../pages/HomePage"));
 
 const router = createBrowserRouter([
   {
@@ -18,9 +18,9 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: (
-      // <RedirectIfLogged>
-      <LoginPage />
-      // </RedirectIfLogged>
+      <RedirectIfLogged>
+        <LoginPage />
+      </RedirectIfLogged>
     ),
   },
   { path: "*", element: <Navigate to="/" /> },

@@ -21,7 +21,7 @@ export default function CommentItem({
 
   if (!handleUpdateComment || !handleDeleteComment) return null;
 
-  const handleEdit = async () => {
+  const handleEdit = async (): Promise<void> => {
     if (isEdit) {
       await commentApi.updateComment(commentId, { message: editComment });
       handleUpdateComment(postId, commentId, { message: editComment });
@@ -32,7 +32,7 @@ export default function CommentItem({
     }
   };
 
-  const handleDelete = async () => {
+  const handleDelete = async (): Promise<void> => {
     await commentApi.deleteComment(commentId);
     handleDeleteComment(postId, commentId);
     toast.success("Comment deleted successfully");
