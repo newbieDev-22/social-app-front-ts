@@ -52,9 +52,9 @@ interface IInputProps {
 
 interface IModalProps {
   children: React.ReactNode;
-  title?: string;
+  title: string;
   width?: number;
-  open?: boolean;
+  open: boolean;
   onClose: () => void;
 }
 

@@ -35,14 +35,20 @@ export default function LoginForm() {
   const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
+      setInputError((prev) => {
+        return { ...prev, ...initialInputError };
+      });
       const error = validateLogin(input);
       if (error) {
+        toast.error("Login Failed!");
         return setInputError(error);
       } else {
+        setInputError((prev) => {
+          return { ...prev, ...initialInputError };
+        });
         await login(input);
         navigate("/");
         toast.success("Login successfully!");
-        setInputError({ ...initialInputError });
       }
     } catch (err) {
       console.error(err);
@@ -58,74 +64,35 @@ export default function LoginForm() {
 
   return (
     <Box component="form" onSubmit={handleSubmitForm}>
-      <Grid2 container spacing={2} direction="column">
+      <Grid2 container spacing={1} direction="column">
         <TextField
-          error={inputError.email === "" ? false : true}
+          error={inputError.email ? true : false}
           type="text"
           variant="outlined"
           label="Email"
+          name="email"
           value={input.email}
           onChange={handleChangeInput}
           helperText={inputError.email}
         />
         <TextField
-          error={inputError.email === "" ? false : true}
+          error={inputError.password ? true : false}
           type="password"
           variant="outlined"
           label="Password"
+          name="password"
           value={input.password}
           onChange={handleChangeInput}
           helperText={inputError.password}
         />
-        <Button variant="contained" type="submit" sx={{ width: "100%" }}>
+        <Button
+          variant="contained"
+          type="submit"
+          sx={{ width: "100%", height: "2.5rem" }}
+        >
           Log in
         </Button>
       </Grid2>
-
-      {/* <div className="grid gap-4">
-        <div>
-          <Input
-            placeholder="Password"
-            type="password"
-            name="password"
-            value={input.password}
-            error={inputError.password}
-            onChange={handleChangeInput}
-          />
-        </div>
-        <div>
-          <Button width="full">Log in</Button>
-        </div>
-      </div> */}
     </Box>
   );
-}
-
-{
-  /* <form onSubmit={handleSubmitForm}>
-<div className="grid gap-4">
-  <div>
-    <Input
-      placeholder="Email"
-      name="email"
-      value={input.email}
-      error={inputError.email}
-      onChange={handleChangeInput}
-    />
-  </div>
-  <div>
-    <Input
-      placeholder="Password"
-      type="password"
-      name="password"
-      value={input.password}
-      error={inputError.password}
-      onChange={handleChangeInput}
-    />
-  </div>
-  <div>
-    <Button width="full">Log in</Button>
-  </div>
-</div>
-</form> */
 }

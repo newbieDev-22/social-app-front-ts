@@ -1,13 +1,15 @@
 import { useState } from "react";
-import Avatar from "../../../components/Avatar";
 import AddComment from "./AddComment";
 import CommentContainer from "./CommentContainer";
 import postApi from "../../../apis/post";
 import usePost from "../../../hooks/usePost";
 import { toast } from "react-toastify";
-import { DeleteIcon, EditIcon, SaveIcon } from "../../../icons";
 import { IPostItem } from "../../../data-type/post";
-import Input from "../../../components/Input";
+import { Avatar, Box, Card, CardContent, TextField, Typography } from "@mui/material";
+import { deepPurple } from "@mui/material/colors";
+import SaveIcon from "@mui/icons-material/Save";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function PostItem({
   postId,
@@ -41,51 +43,92 @@ export default function PostItem({
   };
 
   return (
-    <div className="shadow-md border border-gray-300 rounded-lg my-4 md:w-3/5 sm: w-4/5 m-auto py-2">
-      <div className="flex justify-evenly items-center pt-4">
-        <div className="flex flex-col justify-between items-center h-full w-full gap-4 pl-4 pr-8">
-          <div className="flex justify-between items-center h-full w-full gap-4">
-            <div className="flex w-full items-center font-bold text-lg">
-              <Avatar name={firstName} width="px-3" />
-              <h6>
-                {firstName} {lastName}
-              </h6>
-            </div>
-            {isCreator && (
-              <div className="flex gap-2 justify-center items-center ">
-                {isEdit ? (
-                  <SaveIcon onClick={handleEdit} className={"w-6 h-6"} />
-                ) : (
-                  <EditIcon onClick={handleEdit} className={"w-6 h-6"} />
-                )}
-                <DeleteIcon onClick={handleDelete} className={"w-7 h-7"} />
-              </div>
-            )}
-          </div>
-          <div className="w-full ">
-            {isEdit ? (
-              <Input
-                value={editContent}
-                onChange={(e) => setEditContent(e.target.value)}
-              />
-            ) : (
-              <textarea
-                className="w-full h-full px-4 resize-none focus:outline-none p-2 bg-gray-100 rounded-lg"
-                disabled
-                value={content}
-              ></textarea>
-            )}
-          </div>
-        </div>
-      </div>
-      {comments.length > 0 && (
-        <div className="border mx-6 my-4 rounded-lg">
-          <CommentContainer comments={comments} postId={postId} />
-        </div>
-      )}
-      <div className="border mx-6 my-4 rounded-lg">
-        <AddComment postId={postId} />
-      </div>
-    </div>
+    <Card
+      sx={{
+        width: "80%",
+        mx: "auto",
+        borderRadius: "10px",
+        my: "1rem",
+        border: "1px solid #dedede",
+        padding: "1rem",
+      }}
+    >
+      <CardContent
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            mx: "1rem",
+            mb: "1rem",
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              gap: "1rem",
+              alignItems: "center",
+              mb: "0.25rem",
+            }}
+          >
+            <Avatar sx={{ bgcolor: deepPurple[500] }}>{firstName[0] || ""}</Avatar>
+            <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+              {firstName} {lastName}
+            </Typography>
+          </Box>
+          {isCreator && (
+            <Box sx={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+              {isEdit ? (
+                <SaveIcon
+                  onClick={handleEdit}
+                  fontSize="large"
+                  sx={{ cursor: "pointer" }}
+                ></SaveIcon>
+              ) : (
+                <EditIcon
+                  onClick={() => setIsEdit(true)}
+                  fontSize="large"
+                  sx={{ cursor: "pointer" }}
+                ></EditIcon>
+              )}
+              <DeleteIcon
+                onClick={handleDelete}
+                fontSize="large"
+                sx={{ cursor: "pointer" }}
+              ></DeleteIcon>
+            </Box>
+          )}
+        </Box>
+        <TextField
+          id="outlined-read-only-input"
+          value={editContent}
+          onChange={(e) => setEditContent(e.target.value)}
+          placeholder="What's on your mind"
+          sx={{ mx: "1rem" }}
+          disabled={!isEdit}
+        />
+      </CardContent>
+      <CardContent
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+        }}
+      >
+        {comments.length > 0 && (
+          <Box sx={{ mx: "1rem", borderRadius: "12px" }}>
+            <CommentContainer comments={comments} postId={postId} />
+          </Box>
+        )}
+        <Box sx={{ mx: "1rem", borderRadius: "12px" }}>
+          <AddComment postId={postId} />
+        </Box>
+      </CardContent>
+    </Card>
   );
 }

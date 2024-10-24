@@ -1,13 +1,13 @@
 import { useState } from "react";
-import Button from "../../../components/Button";
 import useAuth from "../../../hooks/useAuth";
 import usePost from "../../../hooks/usePost";
 import { toast } from "react-toastify";
 import postApi from "../../../apis/post";
-import Avatar from "../../../components/Avatar";
 import validatePost from "../validator/validate-post";
 import { IPostInput } from "../../../data-type/post";
 import { IValidateError } from "../../../data-type/validator";
+import { Avatar, Button, Card, CardActions, CardContent, TextField } from "@mui/material";
+import { deepPurple } from "@mui/material/colors";
 
 export default function CreatePost() {
   const [input, setInput] = useState<IPostInput>({ message: "" });
@@ -37,25 +37,45 @@ export default function CreatePost() {
   };
 
   return (
-    <div className=" shadow-md border border-gray-300 rounded-lg flex justify-evenly items-center h-40 my-4 md:w-3/5 sm: w-4/5 m-auto">
-      <div className="flex justify-between items-center h-full w-full gap-4 px-4">
-        <Avatar name={authUser?.firstName || ""} />
-        <div className="flex flex-col w-5/6 px-4 py-8">
-          <textarea
-            className="p-2 focus:outline-none border border-gray-300 rounded-lg max-h-24 min-h-24"
-            placeholder="What's on your mind"
-            value={input.message}
-            onChange={(e) => setInput({ message: e.target.value })}
-          />
-          {inputError.message !== "" && (
-            <p className="text-red-500 text-sm py-2">{inputError.message}</p>
-          )}
-        </div>
-
-        <Button onClick={handleCreatePost} bg="green">
+    <Card
+      sx={{
+        width: "80%",
+        mx: "auto",
+        borderRadius: "10px",
+        my: "1rem",
+        border: "1px solid #dedede",
+        padding: "1rem",
+      }}
+    >
+      <CardContent
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Avatar sx={{ bgcolor: deepPurple[500] }}>{authUser?.firstName[0] || ""}</Avatar>
+        <TextField
+          value={input.message}
+          onChange={(e) => setInput({ message: e.target.value })}
+          placeholder="What's on your mind"
+          fullWidth
+          multiline
+          rows={3}
+          error={inputError.message ? true : false}
+          sx={{ mx: "1rem" }}
+          helperText={inputError.message}
+        ></TextField>
+      </CardContent>
+      <CardActions sx={{ justifyContent: "end" }}>
+        <Button
+          onClick={handleCreatePost}
+          variant="contained"
+          sx={{ backgroundColor: "rgb(34 197 94)" }}
+        >
           Submit
         </Button>
-      </div>
-    </div>
+      </CardActions>
+    </Card>
   );
 }

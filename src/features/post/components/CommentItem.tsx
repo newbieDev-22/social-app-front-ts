@@ -1,11 +1,13 @@
 import { useState } from "react";
-import Avatar from "../../../components/Avatar";
 import usePost from "../../../hooks/usePost";
 import commentApi from "../../../apis/comment";
-import Input from "../../../components/Input";
 import { toast } from "react-toastify";
-import { DeleteIcon, EditIcon, SaveIcon } from "../../../icons";
 import { ICommentItem } from "../../../data-type/comment";
+import { Avatar, Box, TextField, Typography } from "@mui/material";
+import { deepPurple } from "@mui/material/colors";
+import SaveIcon from "@mui/icons-material/Save";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function CommentItem({
   postId,
@@ -39,36 +41,67 @@ export default function CommentItem({
   };
 
   return (
-    <div className="flex flex-col justify-between items-center h-full w-full gap-4 pl-4 pr-8 py-2">
-      <div className="flex justify-between items-center h-full w-full gap-4">
-        <div className="flex  w-full items-center font-bold">
-          <Avatar name={firstName} width="px-3" />
-          <h6>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "column",
+        width: "100%",
+        my: "1rem",
+      }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          mx: "1rem",
+          mb: "1rem",
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            gap: "1rem",
+            alignItems: "center",
+            mb: "0.25rem",
+          }}
+        >
+          <Avatar sx={{ bgcolor: deepPurple[500] }}>{firstName[0] || ""}</Avatar>
+          <Typography variant="h6" sx={{ fontWeight: "bold" }}>
             {firstName} {lastName}
-          </h6>
-        </div>
+          </Typography>
+        </Box>
         {isCommenter && (
-          <div className="flex gap-2 justify-center items-center ">
+          <Box sx={{ display: "flex", gap: "1rem", alignItems: "center" }}>
             {isEdit ? (
-              <SaveIcon onClick={handleEdit} className={"w-5 h-5"} />
+              <SaveIcon
+                onClick={handleEdit}
+                fontSize="large"
+                sx={{ cursor: "pointer" }}
+              ></SaveIcon>
             ) : (
-              <EditIcon onClick={handleEdit} className={"w-5 h-5"} />
+              <EditIcon
+                onClick={() => setIsEdit(true)}
+                fontSize="large"
+                sx={{ cursor: "pointer" }}
+              ></EditIcon>
             )}
-            <DeleteIcon onClick={handleDelete} className={"w-6 h-6"} />
-          </div>
+            <DeleteIcon
+              onClick={handleDelete}
+              fontSize="large"
+              sx={{ cursor: "pointer" }}
+            ></DeleteIcon>
+          </Box>
         )}
-      </div>
-      <div className="w-full ">
-        {isEdit ? (
-          <Input value={editComment} onChange={(e) => setEditComment(e.target.value)} />
-        ) : (
-          <textarea
-            className="w-full h-full px-4 resize-none focus:outline-none p-2 bg-gray-100 rounded-lg"
-            disabled
-            value={message}
-          ></textarea>
-        )}
-      </div>
-    </div>
+      </Box>
+      <TextField
+        id="outlined-read-only-input"
+        value={editComment}
+        onChange={(e) => setEditComment(e.target.value)}
+        placeholder="What's on your mind"
+        sx={{ mx: "1rem" }}
+        disabled={!isEdit}
+      />
+    </Box>
   );
 }

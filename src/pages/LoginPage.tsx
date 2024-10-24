@@ -22,25 +22,14 @@ export default function LoginPage() {
           mx: "auto",
           width: "50%",
           p: "1rem",
-          backgroundColor: "pink",
+          boxShadow: 5,
           borderRadius: "10px",
         }}
       >
         <LoginForm />
-        <hr className="my-4 border" />
+        <Box sx={{ my: "1rem", borderBottom: "1px solid #dedede" }} />
         <RegisterContainer />
       </Box>
     </Box>
-
-    // <div className="mx-auto mt-32">
-    //   <h2 className="text-center font-bold text-3xl p-4 text-slate-600">
-    //     Welcome to Fakebuck!
-    //   </h2>
-    //   <div className="bg-white mx-auto p-4 rounded-md max-w-sm  shadow-lg">
-    //     <LoginForm />
-    //     <hr className="my-4 border" />
-    //     <RegisterContainer />
-    //   </div>
-    // </div>
   );
 }

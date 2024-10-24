@@ -1,7 +1,12 @@
-import { Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import { Link } from "@mui/material";
 
-export default function Navbar() {
+export default function ButtonAppBar() {
   const auth = useAuth();
   const authUser = auth?.authUser;
   const logout = auth?.logout;
@@ -9,15 +14,30 @@ export default function Navbar() {
   if (!authUser) return null;
 
   return (
-    <header className="flex justify-between items-center bg-gradient-to-b from-red-500 to-rose-400 shadow px-4 h-16">
-      <div className="justify-self-start cursor-pointer">
-        <Link to="/">
-          <div className="text-xl font-bold text-white">{`Hello, ${authUser?.firstName} ${authUser?.lastName}`}</div>
-        </Link>
-      </div>
-      <button onClick={logout}>
-        <h3 className="text-lg font-bold text-white">Log out</h3>
-      </button>
-    </header>
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar
+        position="static"
+        sx={{
+          backgroundColor: "rgb(220,32,38)",
+          backgroundImage:
+            "linear-gradient(180deg, rgba(220,32,38,1) 0%, rgba(240,111,115,1) 100%)",
+        }}
+      >
+        <Toolbar>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1, textDecoration: "none" }}
+          >
+            <Link href="/" underline="none" sx={{ color: "white" }}>
+              Hi, {authUser.firstName + " " + authUser.lastName}
+            </Link>
+          </Typography>
+          <Button color="inherit" onClick={logout} sx={{ fontSize: "18px" }}>
+            Log out
+          </Button>
+        </Toolbar>
+      </AppBar>
+    </Box>
   );
 }
