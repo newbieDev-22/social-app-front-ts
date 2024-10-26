@@ -5,15 +5,15 @@ class Comment {
   constructor() {}
 
   createComment(postId: number, message: ICommentInput) {
-    return axios.post(`/comments/post/${postId}/`, message);
+    return axios.post(`/comments/post/${postId}`, message);
   }
 
   updateComment(commentId: number, message: ICommentInput) {
-    return axios.patch(`/comments/${commentId}/`, message);
+    return axios.patch(`/comments/${commentId}`, message);
   }
 
   deleteComment(commentId: number) {
-    return axios.delete(`/comments/${commentId}/`);
+    return axios.delete(`/comments/${commentId}`);
   }
 }
 

@@ -5,15 +5,15 @@ class Auth {
   constructor() {}
 
   register(body: IRegisterInput) {
-    return axios.post("/auth/register/", body);
+    return axios.post("/auth/register", body);
   }
 
   login(body: ILoginInput) {
-    return axios.post("/auth/login/", body);
+    return axios.post("/auth/login", body);
   }
 
   getAuthUser(): Promise<IGetDataAuthUser> {
-    return axios.get("/auth/get-me/");
+    return axios.get("/auth/get-me");
   }
 }
 
