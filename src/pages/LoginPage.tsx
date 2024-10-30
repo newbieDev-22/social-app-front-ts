@@ -15,7 +15,7 @@ export default function LoginPage() {
           color: "rgb(71 85 105)",
         }}
       >
-        Welcome to Fakebuck!
+        Welcome to FakeBuck!
       </Typography>
       <Box
         sx={{
@@ -27,6 +27,7 @@ export default function LoginPage() {
         }}
       >
         <LoginForm />
+        <button className="bg-red-400">Test</button>
         <Box sx={{ my: "1rem", borderBottom: "1px solid #dedede" }} />
         <RegisterContainer />
       </Box>
